@@ -11,7 +11,7 @@ function App() {
     <>
     <Routes >
       <Route path="/" element={<MainLayout/>}>
-        
+
       </Route>
    
       <Route path="newContact" element={<NewContact/>}/>

@@ -27,8 +27,8 @@ import {
     TreeSelect,
     Upload,
 } from 'antd';
-import { inputValue, todosMap } from '../Redux-store/features/sliceCounter';
-
+import { addId, fatherName, field, gender, inputValue, mail, motivation, name, surname, todosMap } from '../Redux-store/features/sliceCounter';
+import { useNavigate } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -42,16 +42,18 @@ const FormDisabledDemo = () => {
 
     const obj = useSelector((state) => state.counter);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const submit = (e) => {
-        e.preventDefault()
+        dispatch(addId())
         dispatch(todosMap());
         dispatch(inputValue(""));
+        navigate("/");
     }
 
-    const change = (e) => {
-        dispatch(inputValue(e.target.value))
-    }
+    // const change = (e) => {
+    //     dispatch(inputValue(e.target.value))
+    // }
 
     return (
         <div className=' bg-slate-300 p-16 flex flex-col items-center justify-center'>
@@ -59,61 +61,42 @@ const FormDisabledDemo = () => {
                 <h1 className=' text-6xl'>FORM</h1>
             </div>
             <div className=' w-[70%] flex flex-col items-center justify-center  '>
-                <form onSubmit={() => submit()} >
-                <Form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item className='mt-10' label="Name">
-                            <input className='w-full p-2 rounded-xl' value={obj.todo} onChange={(e) => change(e)} placeholder="Enter your first name" />
-                            {obj.todo}
-                        </Form.Item>
-                    </form>
-                    <form className=' w-[500px]' onSubmit={() => submit()}>
-                        <Form.Item className='mt-10' label="Surname">
-                            <input className='w-full p-2 rounded-xl' placeholder="Enter your last name" />
-                        </Form.Item>
-                    </form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item className='mt-10' label="Father's name">
-                            <input className='w-full p-2 rounded-xl' placeholder="Enter your father's name" />
-                        </Form.Item>
-                    </form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item className='mt-10' label="Email">
-                            <input className='w-full p-2 rounded-xl' placeholder="Enter your e-mail" />
-                        </Form.Item>
-                    </form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item label="Field">
-                            <Select placeholder="Select your field" >
-                                <Select.Option value="Front-end Developer">Front-end Developer</Select.Option>
-                                <Select.Option value="Back-end Developer">Back-end developer</Select.Option>
-                                <Select.Option value="Full-stack Developer">Full-stack Developer</Select.Option>
-                            </Select>
-                        </Form.Item>
-                    </form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item label="Motivation">
-                            <TextArea placeholder="Write about your motivation" rows={4} />
-                        </Form.Item>
-                    </form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item label="Gender">
-                            <Radio.Group>
-                                <Radio value=" Male "> Male </Radio>
-                                <Radio value="Female"> Female </Radio>
-                            </Radio.Group>
-                        </Form.Item>
-                    </form>
-                    <form onSubmit={() => submit()}>
-                        <Form.Item >
-                            <button className='w-[100%] p-3 rounded-xl bg-cyan-500 text-white '>Send Form</button>
-                        </Form.Item>
-                    </form>
-                </Form>
-                </form>
-            
-            </div>
 
+                <Form className='w-[500px]' onFinish={submit} >
+                    <Form.Item className='mt-10' label="Name" name="name" required
+                        rules={[{ required: true, message: "Please select an name!" }]}>
+                        <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(name(e.target.value))} placeholder="Enter your first name" />
+                    </Form.Item>
+                    <Form.Item className='mt-10' label="Surname" required>
+                        <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(surname(e.target.value))} placeholder="Enter your last name" />
+                    </Form.Item>
+                    <Form.Item className='mt-10' label="Father's name" required>
+                        <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(fatherName(e.target.value))} placeholder="Enter your father's name" />
+                    </Form.Item>
+                    <Form.Item className='mt-10' label="Email" required rules={[{ type: 'email' }]}>
+                        <Input required type='email' className='w-full p-2 rounded-xl' onChange={(e) => dispatch(mail(e.target.value))} placeholder="Enter your e-mail" />
+                    </Form.Item>
+                    <Form.Item required label="Field" >
+                        <Select placeholder="Select your field" onChange={(e) => dispatch(field(e))} >
+                            <Select.Option value="Front-end Developer">Front-end Developer</Select.Option>
+                            <Select.Option value="Back-end Developer">Back-end developer</Select.Option>
+                            <Select.Option value="Full-stack Developer">Full-stack Developer</Select.Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item required label="Motivation">
+                        <TextArea required onChange={(e) => dispatch(motivation(e.target.value))} placeholder="Write about your motivation" rows={4} />
+                    </Form.Item>
+                    <Form.Item required label="Gender">
+                        <Radio.Group onChange={(e) => dispatch(gender(e.target.value))}>
+                            <Radio required value=" Male "> Male </Radio>
+                            <Radio required value="Female"> Female </Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item >
+                        <Button className='w-[100%] p-5 flex items-center justify-center rounded-xl bg-cyan-500 text-white' block type='primary' htmlType='submit'>Send Form</Button>
+                    </Form.Item>
+                </Form>
+            </div>
         </div>
     );
 };

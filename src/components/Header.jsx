@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <div  className='w-[100%]  text-right bg-green-300 p-10 '>
-      <button onClick={()=>newPageContact()} className='p-3 rounded-2xl hover:bg-orange-300 bg-slate-50'>Create a new connection</button>
+      <button onClick={()=>newPageContact()} className='p-2 rounded-2xl hover:bg-orange-300 bg-slate-50'>Create a new connection</button>
     </div>
   )
 }
