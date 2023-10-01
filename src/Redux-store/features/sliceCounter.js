@@ -15,7 +15,8 @@ const counterSlice = createSlice({
       gender: "",
       dataDelete: [],
       show: false,
-
+      array: {},
+      dataId: 0
    },
    reducers: {
       inputValue: (state, action) => {
@@ -64,12 +65,15 @@ const counterSlice = createSlice({
          state.todos = state.todos.filter(item => item.id !== action.payload)
       },
       showModal: (state, action) => {
-         state.todos = state.todos.map((i) => {
+        
+         state.array = state.todos.map((i) => {
+            
             if(i.id === action.payload){
-               state.show = !state.show
-               console.log(i.id, action.payload);
+             state.dataId = action.payload
+             state.show = !state.show
+
             }
-            return i;
+            
          })
       },
       hideModal: (state, action) => {
