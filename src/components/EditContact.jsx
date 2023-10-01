@@ -1,47 +1,17 @@
-/* eslint-disable import/no-anonymous-default-export */
-// import React from 'react'
-
-// const NewContact = () => {
-//   return (
-//     <div>
-//       new contact
-//     </div>
-//   )
-// }
-
-// export default NewContact
+/* eslint-disable array-callback-return */
+import { Button, Form, Input, Radio, Select } from 'antd'
+import TextArea from 'antd/es/input/TextArea'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { PlusOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
-import {
-    Button,
-    Cascader,
-    Checkbox,
-    DatePicker,
-    Form,
-    Input,
-    InputNumber,
-    Radio,
-    Select,
-    Slider,
-    Switch,
-    TreeSelect,
-    Upload,
-} from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
 import { addId, fatherName, field, gender, inputValue, mail, motivation, name, surname, todosMap } from '../Redux-store/features/sliceCounter';
-import { useNavigate } from 'react-router-dom';
 
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
-const normFile = (e) => {
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e?.fileList;
-};
-const FormDisabledDemo = () => {
+const EditContact = () => {
 
-    const obj = useSelector((state) => state.counter);
+
+    const {id }= useParams()
+ 
+ const obj = useSelector((state) => state.counter);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -51,22 +21,23 @@ const FormDisabledDemo = () => {
         dispatch(inputValue(""));
         navigate("/");
     }
-
-    // const change = (e) => {
-    //     dispatch(inputValue(e.target.value))
-    // }
-
-    return (
-        <div className=' bg-slate-300 p-16 flex flex-col items-center justify-center'>
+  return (
+    <div>
+       <div className=' bg-slate-300 p-16 flex flex-col items-center justify-center'>
             <div>
                 <h1 className=' text-6xl'>FORM</h1>
             </div>
             <div className=' w-[70%] flex flex-col items-center justify-center  '>
-
-                <Form className='w-[500px]' onFinish={submit} >
-                    <Form.Item className='mt-10' label="Name" name="name" required
+            {obj.todos.map((item)=>{
+ 
+           if(obj.dataId === item.id ){
+         console.log(item.id ,id);
+  console.log(obj.dataId);
+             return  <Form  key={id} className='w-[500px]' onFinish={submit} >
+                    <Form.Item key={id} className='mt-10' label="Name" name="name" required
                         rules={[{ required: true, message: "Please select an name!" }]}>
-                        <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(name(e.target.value))} placeholder="Enter your first name" />
+                        <Input  value={item.name} required className='w-full  p-2 rounded-xl' onChange={(e) => dispatch(name(e.target.value))}  placeholder="Enter your first name" />
+                        
                     </Form.Item>
                     <Form.Item className='mt-10' label="Surname" required>
                         <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(surname(e.target.value))} placeholder="Enter your last name" />
@@ -97,8 +68,16 @@ const FormDisabledDemo = () => {
                         <Button className='w-[100%] p-5 flex items-center justify-center rounded-xl bg-cyan-500 text-white' block type='primary' htmlType='submit'>Send Form</Button>
                     </Form.Item>
                 </Form>
+
+           }
+
+              
+            })
+        }
             </div>
         </div>
-    );
-};
-export default () => <FormDisabledDemo />;
+    </div>
+  )
+}
+
+export default EditContact

@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { createSlice } from "@reduxjs/toolkit";
 
 const counterSlice = createSlice({
@@ -16,6 +17,7 @@ const counterSlice = createSlice({
       dataDelete: [],
       show: false,
       array: {},
+      edit: {},
       dataId: 0
    },
    reducers: {
@@ -78,9 +80,21 @@ const counterSlice = createSlice({
       },
       hideModal: (state, action) => {
          state.show = !state.show
+      },
+      editContact:(state,action)=>{
+         state.edit = state.todos.find((edit) => {
+            
+            if(edit.id === action.payload){
+             state.dataId = action.payload
+             console.log(edit.id , state.dataId);
+             console.log(edit);
+            }
+            
+         })
       }
+
 
    }
 })
-export const { inputValue, todosMap, addId, name, surname, mail, fatherName, field, motivation, gender, contactDelete, showModal, hideModal } = counterSlice.actions;
+export const { inputValue, todosMap, addId, name, surname, mail, fatherName, field, motivation, gender, contactDelete, showModal, hideModal,  editContact } = counterSlice.actions;
 export default counterSlice.reducer

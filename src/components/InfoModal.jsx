@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,12 +14,12 @@ const InfoModal = () => {
         <>
             {obj.todos.map((item) => {
 
-                if (item.id == obj.dataId) {
+                if (item.id === obj.dataId) {
                     console.log(item);
-                  return  <Modal title="Info!" open={obj.show}  /* onOk={} */ onCancel={() => dispatch(hideModal())}>
-
+                  return  <Modal open={obj.show} className='!w-[400px] flex justify-center items-start flex-col '  /* onOk={} */ onCancel={() => dispatch(hideModal())}>
+                   <h1 className='text-[25px] font-bold text-red-500 text-center'>Info!</h1>
                         <nav >
-                            <ul>
+                            <ul className='w-full text-blue-400  text-[25px]'>
                                 <li>
                                     {"Name: " + item.name}
                                 </li>
