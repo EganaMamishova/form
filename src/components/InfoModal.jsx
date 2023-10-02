@@ -15,7 +15,6 @@ const InfoModal = () => {
             {obj.todos.map((item) => {
 
                 if (item.id === obj.dataId) {
-                    console.log(item);
                   return  <Modal open={obj.show} className='!w-[400px] flex justify-center items-start flex-col '  /* onOk={} */ onCancel={() => dispatch(hideModal())}>
                    <h1 className='text-[25px] font-bold text-red-500 text-center'>Info!</h1>
                         <nav >

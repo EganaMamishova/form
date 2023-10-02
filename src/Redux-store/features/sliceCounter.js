@@ -18,19 +18,20 @@ const counterSlice = createSlice({
       show: false,
       array: {},
       edit: {},
+      testEdit: [],
       dataId: 0
    },
    reducers: {
       inputValue: (state, action) => {
          //   state.todo = action.payload
-         console.log(action.payload);
+       
       },
       todosMap: (state, action) => {
          state.todos = [...state.todos, state.allValue]
       },
       addId: (state, action) => {
          state.allValue = {
-            id: Math.floor(Math.random() * 1000),
+            id: action.payload ? action.payload : Math.floor(Math.random() * 1000),
             value: state.todo,
             completed: false,
             name: state.name,
@@ -42,6 +43,21 @@ const counterSlice = createSlice({
             gender: state.gender
          }
       },
+    /*   addIdEdit: (state, action) => {
+         state.allValue = {
+            id: action.payload,
+            value: state.todo,
+            completed: false,
+            name: state.name,
+            surname: state.surname,
+            fatherName: state.fatherName,
+            mail: state.mail,
+            field: state.field,
+            motivation: state.motivation,
+            gender: state.gender
+         }
+      }, */
+
       name: (state, action) => {
          state.name = action.payload
       },
@@ -73,28 +89,26 @@ const counterSlice = createSlice({
             if(i.id === action.payload){
              state.dataId = action.payload
              state.show = !state.show
-
-            }
-            
+            }            
          })
       },
       hideModal: (state, action) => {
          state.show = !state.show
       },
+      postContact:(state,action)=>{
+         state.edit = state.todos.find((edit) => edit)
+      },
       editContact:(state,action)=>{
-         state.edit = state.todos.find((edit) => {
-            
-            if(edit.id === action.payload){
-             state.dataId = action.payload
-             console.log(edit.id , state.dataId);
-             console.log(edit);
+         state.todos = [...state.todos, state.allValue]
+         state.testEdit = state.todos.map((i)=>{
+            if(state.todos.includes(action.payload) ){
+               console.log(i);
             }
-            
+         
          })
       }
 
-
    }
 })
-export const { inputValue, todosMap, addId, name, surname, mail, fatherName, field, motivation, gender, contactDelete, showModal, hideModal,  editContact } = counterSlice.actions;
+export const { inputValue, todosMap, addId, name, surname, mail, fatherName, field, motivation, gender, contactDelete, showModal, hideModal,  postContact, editContact, addIdEdit } = counterSlice.actions;
 export default counterSlice.reducer
