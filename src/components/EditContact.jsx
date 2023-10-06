@@ -8,7 +8,6 @@ import { addId, addIdEdit, editContact, fatherName, field, gender, inputValue, m
 
 const EditContact = () => {
 
-
     const { id } = useParams()
     let parseId = parseInt(id)
     const obj = useSelector((state) => state.counter);
@@ -16,12 +15,17 @@ const EditContact = () => {
     const navigate = useNavigate();
     console.log(obj.testEdit);
     console.log(obj.todos);
-    const submit = (e) => {
+    
+    /* const submit = (e) => {
         dispatch(addId(parseId))
-/*         dispatch(todosMap()); */
         dispatch(inputValue(""));
-       /*  navigate("/"); */
+        navigate("/");
         dispatch(editContact(parseId))
+    } */
+    const submit = () => {
+        navigate("/");
+        dispatch(editContact(parseId))
+        
     }
     return (
         <div>
@@ -31,33 +35,33 @@ const EditContact = () => {
                 </div>
                 <div className=' w-[70%] flex flex-col items-center justify-center  '>
                     {obj.todos.map((item) => {
-                       
+                  
                         if (parseId === item.id) {                         
                             return <Form key={parseId} className='w-[500px]' onFinish={submit} >
                                 <Form.Item key={parseId} className='mt-10' label="Name" required
                                     rules={[{ required: true, message: "Please select an name!" }]}>
                                     <Input defaultValue={item.name} required className='w-full  p-2 rounded-xl' onChange={(e) => dispatch(name(e.target.value))} placeholder="Enter your first name" />
                                 </Form.Item>
-                                <Form.Item className='mt-10' label="Surname" required>
+                                <Form.Item key={parseId} className='mt-10' label="Surname" required>
                                     <Input defaultValue={item.surname} required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(surname(e.target.value))} placeholder="Enter your last name" />
                                 </Form.Item>
-                                <Form.Item className='mt-10' label="Father's name" required>
+                                <Form.Item key={parseId} className='mt-10' label="Father's name" required>
                                     <Input defaultValue={item.fatherName} required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(fatherName(e.target.value))} placeholder="Enter your father's name" />
                                 </Form.Item>
-                                <Form.Item className='mt-10' label="Email" required rules={[{ type: 'email' }]}>
+                                <Form.Item key={parseId} className='mt-10' label="Email" required rules={[{ type: 'email' }]}>
                                     <Input defaultValue={item.mail} required type='email' className='w-full p-2 rounded-xl' onChange={(e) => dispatch(mail(e.target.value))} placeholder="Enter your e-mail" />
                                 </Form.Item>
-                                <Form.Item required label="Field" >
+                                <Form.Item key={parseId} required label="Field" >
                                     <Select defaultValue={item.field} placeholder="Select your field" onChange={(e) => dispatch(field(e))} >
                                         <Select.Option value="Front-end Developer">Front-end Developer</Select.Option>
                                         <Select.Option value="Back-end Developer">Back-end developer</Select.Option>
                                         <Select.Option value="Full-stack Developer">Full-stack Developer</Select.Option>
                                     </Select>
                                 </Form.Item>
-                                <Form.Item required label="Motivation">
+                                <Form.Item key={parseId} required label="Motivation">
                                     <TextArea defaultValue={item.motivation} required onChange={(e) => dispatch(motivation(e.target.value))} placeholder="Write about your motivation" rows={4} />
                                 </Form.Item>
-                                <Form.Item required label="Gender">
+                                <Form.Item key={parseId} required label="Gender">
                                     <Radio.Group defaultValue={item.gender} onChange={(e) => dispatch(gender(e.target.value))}>
                                         <Radio required value=" Male "> Male </Radio>
                                         <Radio required value="Female"> Female </Radio>

@@ -24,7 +24,7 @@ const counterSlice = createSlice({
    reducers: {
       inputValue: (state, action) => {
          //   state.todo = action.payload
-       
+
       },
       todosMap: (state, action) => {
          state.todos = [...state.todos, state.allValue]
@@ -43,20 +43,20 @@ const counterSlice = createSlice({
             gender: state.gender
          }
       },
-    /*   addIdEdit: (state, action) => {
-         state.allValue = {
-            id: action.payload,
-            value: state.todo,
-            completed: false,
-            name: state.name,
-            surname: state.surname,
-            fatherName: state.fatherName,
-            mail: state.mail,
-            field: state.field,
-            motivation: state.motivation,
-            gender: state.gender
-         }
-      }, */
+      /*   addIdEdit: (state, action) => {
+           state.allValue = {
+              id: action.payload,
+              value: state.todo,
+              completed: false,
+              name: state.name,
+              surname: state.surname,
+              fatherName: state.fatherName,
+              mail: state.mail,
+              field: state.field,
+              motivation: state.motivation,
+              gender: state.gender
+           }
+        }, */
 
       name: (state, action) => {
          state.name = action.payload
@@ -83,32 +83,51 @@ const counterSlice = createSlice({
          state.todos = state.todos.filter(item => item.id !== action.payload)
       },
       showModal: (state, action) => {
-        
+
          state.array = state.todos.map((i) => {
-            
-            if(i.id === action.payload){
-             state.dataId = action.payload
-             state.show = !state.show
-            }            
+
+            if (i.id === action.payload) {
+               state.dataId = action.payload
+               state.show = !state.show
+            }
          })
       },
       hideModal: (state, action) => {
          state.show = !state.show
       },
-      postContact:(state,action)=>{
+      postContact: (state, action) => {
          state.edit = state.todos.find((edit) => edit)
       },
-      editContact:(state,action)=>{
-         state.todos = [...state.todos, state.allValue]
-         state.testEdit = state.todos.map((i)=>{
-            if(state.todos.includes(action.payload) ){
-               console.log(i);
+      /*  editContact:(state,action)=>{
+          state.todos = [...state.todos, state.allValue]
+          state.testEdit = state.todos.map((i)=>{
+             if(state.todos.includes(action.payload) ){
+                console.log(i);
+             }     
+          })
+       } */
+      editContact: (state, action) => {
+         state.todos = state.todos.map((item) => {
+        
+            if (item.id === action.payload) {
+               console.log({...item});
+               return {
+                /*   ...item, */
+                  id: action.payload,
+                  name: state.name,
+                  surname: state.surname,
+                  fatherName: state.fatherName,
+                  mail: state.mail,
+                  field: state.field,
+                  motivation: state.motivation,
+                  gender: state.gender,
+               };
             }
-         
-         })
+            return item;
+         });
       }
 
    }
 })
-export const { inputValue, todosMap, addId, name, surname, mail, fatherName, field, motivation, gender, contactDelete, showModal, hideModal,  postContact, editContact, addIdEdit } = counterSlice.actions;
+export const { inputValue, todosMap, addId, name, surname, mail, fatherName, field, motivation, gender, contactDelete, showModal, hideModal, postContact, editContact, addIdEdit } = counterSlice.actions;
 export default counterSlice.reducer

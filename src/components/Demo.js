@@ -8,9 +8,6 @@ import { contactDelete, editContact, postContact, showModal, todosMap } from '..
 import { NavLink } from 'react-router-dom';
 
 
-
-
-
 const App = () => {
 
     const obj = useSelector((state) => state.counter)

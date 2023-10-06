@@ -68,7 +68,7 @@ const FormDisabledDemo = () => {
                         rules={[{ required: true, message: "Please select an name!" }]}>
                         <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(name(e.target.value))} placeholder="Enter your first name" />
                     </Form.Item>
-                    <Form.Item className='mt-10' label="Surname" required>
+                    <Form.Item className='mt-10' label="Surname" name="surname" required>
                         <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(surname(e.target.value))} placeholder="Enter your last name" />
                     </Form.Item>
                     <Form.Item className='mt-10' label="Father's name" required>
