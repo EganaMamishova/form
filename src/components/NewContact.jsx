@@ -63,8 +63,8 @@ const FormDisabledDemo = () => {
             </div>
             <div className=' w-[70%] flex flex-col items-center justify-center  '>
 
-                <Form className='w-[500px]' onFinish={submit} >
-                    <Form.Item className='mt-10' label="Name" name="name" required
+                <Form   className='w-[500px]' onFinish={submit} >
+                    <Form.Item className='mt-10' key="name" label="Name" name="name" required
                         rules={[{ required: true, message: "Please select an name!" }]}>
                         <Input required className='w-full p-2 rounded-xl' onChange={(e) => dispatch(name(e.target.value))} placeholder="Enter your first name" />
                     </Form.Item>

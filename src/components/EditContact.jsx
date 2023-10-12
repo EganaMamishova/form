@@ -4,7 +4,7 @@ import TextArea from 'antd/es/input/TextArea'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addId, addIdEdit, editContact, fatherName, field, gender, inputValue, mail, motivation, name, surname, todosMap } from '../Redux-store/features/sliceCounter';
+import { addId, addIdEdit, editContact, fatherName, field, gender, inputValue, mail, motivation, name, surname } from '../Redux-store/features/sliceCounter';
 
 const EditContact = () => {
 
