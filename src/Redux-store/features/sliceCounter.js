@@ -87,7 +87,7 @@ const counterSlice = createSlice({
       },
       contactDelete: (state, action) => {
          state.todos = state.todos.filter(item => item.id !== action.payload)
-         // localStorage.setItem("todosMap", JSON.stringify(state.todos))
+         localStorage.setItem("todosMap", JSON.stringify(state.todos))
       },
       showModal: (state, action) => {
 
